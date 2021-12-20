@@ -42,7 +42,12 @@ class BaseApi:
 
     def request_process(self, method, api, **kwargs):
         url = GITTER_BASE_URL + api
-        return method(url, headers=self.headers, **kwargs).json()
+        reply = method(url, headers=self.headers, **kwargs)
+        try:
+            result = reply.json()
+        except:
+            result = reply
+        return result
 
     def get(self, api, **kwargs):
         return self.request_process(r.get, api, **kwargs)
