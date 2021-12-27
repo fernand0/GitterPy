@@ -43,9 +43,9 @@ class BaseApi:
     def request_process(self, method, api, **kwargs):
         url = GITTER_BASE_URL + api
         reply = method(url, headers=self.headers, **kwargs)
-        try:
+        if reply.text:
             result = reply.json()
-        except:
+        else:
             result = reply
         return result
 
